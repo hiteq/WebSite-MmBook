@@ -4,12 +4,11 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
-  "homepage": "https://hiteq.github.io/",
+  "homepage": "https://hiteq.github.io/mm-web-book",
   "dependencies": {
     "@popmotion/popcorn": "0.4.2",
     "fibers": "4.0.2",
     "framer-motion": "1.6.0",
-    "gh-pages": "^2.1.1",
     "jsdom": "^15.2.1",
     "lodash": "4.17.15",
     "node-sass": "4.13.0",
@@ -25,17 +24,17 @@
   "devDependencies": {
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
+    "gh-pages": "^2.1.1",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "utf-8-validate": "^5.0.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",

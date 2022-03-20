@@ -9,7 +9,7 @@ const deltaThreshold = 5;
 const elasticFactor = 0.2;
 function springTo(value, from, to) {
   if (value.isAnimating()) return;
-  value.start(complete => {
+  value.start((complete) => {
     const animation = spring({
       from,
       to,
@@ -17,7 +17,7 @@ function springTo(value, from, to) {
       stiffness: 400,
       damping: 40
     }).start({
-      update: v => value.set(v),
+      update: (v) => value.set(v),
       complete
     });
     return () => animation.stop();
@@ -48,7 +48,7 @@ const debouncedSpringTo = debounce(springTo, 100);
  * @param isActive - `true` if this listener should fire.
  */
 export function useWheelScroll(ref, y, constraints, onWheelCallback, isActive) {
-  const onWheel = event => {
+  const onWheel = (event) => {
     event.preventDefault();
     const currentY = y.get();
     let newY = currentY - event.deltaY;

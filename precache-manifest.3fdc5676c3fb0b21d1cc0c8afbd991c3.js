@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/WebSite-MmBook/static/js/main.c52481da.chunk.js"
   },
   {
-    "revision": "401f45af680eff81e9d4",
-    "url": "/WebSite-MmBook/static/js/1.401f45af.chunk.js"
+    "revision": "ad94f20908472b6270e4",
+    "url": "/WebSite-MmBook/static/js/1.ad94f209.chunk.js"
   },
   {
     "revision": "05138c0d83d571451bb4",
     "url": "/WebSite-MmBook/static/js/runtime~main.05138c0d.js"
   },
   {
-    "revision": "6991fc6ce0d9970c22d53ac2cdf9e5e4",
+    "revision": "618304f48f7ecd6d1314343717a3362f",
     "url": "/WebSite-MmBook/index.html"
   }
 ];

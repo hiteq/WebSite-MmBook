@@ -1,31 +1,37 @@
-import { useMotionValue, useInvertedScale } from "framer-motion";
+import { useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
+
 export function useInvertedBorderRadius(radius) {
   const scaleX = useMotionValue(1);
   const scaleY = useMotionValue(1);
-  const inverted = useInvertedScale({ scaleX, scaleY });
+  
+  // Create inverted scale values using useTransform
+  const invertedScaleX = useTransform(scaleX, (value) => 1 / value);
+  const invertedScaleY = useTransform(scaleY, (value) => 1 / value);
+  
   const borderRadius = useMotionValue(`${radius}px`);
+  
   useEffect(() => {
     function updateRadius() {
-      // const latestX = inverted.scaleX.get();
-      // const latestY = inverted.scaleY.get();
-      // const xRadius = latestX * radius + "px";
-      // const yRadius = latestY * radius + "px";
-      // borderRadius.set(`${xRadius} ${yRadius}`);
+      const latestX = invertedScaleX.get();
+      const latestY = invertedScaleY.get();
+      const xRadius = latestX * radius + "px";
+      const yRadius = latestY * radius + "px";
+      borderRadius.set(`${xRadius} ${yRadius}`);
     }
-    // const unsubScaleX = inverted.scaleX.onChange(updateRadius);
-    // const unsubScaleY = inverted.scaleY.onChange(updateRadius);
+    
+    const unsubScaleX = invertedScaleX.on("change", updateRadius);
+    const unsubScaleY = invertedScaleY.on("change", updateRadius);
+    
     return () => {
-      // unsubScaleX();
-      // unsubScaleY();
+      unsubScaleX();
+      unsubScaleY();
     };
-  }, [radius, borderRadius]);
+  }, [radius, invertedScaleX, invertedScaleY, borderRadius]);
+
   return {
-    scaleX,
-    scaleY,
-    borderTopLeftRadius: borderRadius,
-    borderTopRightRadius: borderRadius,
-    borderBottomLeftRadius: borderRadius,
-    borderBottomRightRadius: borderRadius
+    scaleX: invertedScaleX,
+    scaleY: invertedScaleY,
+    borderRadius
   };
 }

@@ -1,24 +1,31 @@
 import * as React from "react";
 import { Card } from "./Card";
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
 
-const List = ({ match, history }) => (
-  <ul className="card-list">
-    {cardData.map(card => (
-      <Card
-        key={card.id}
-        isSelected={match.params.id === card.id}
-        history={history}
-        {...card}
-      />
-    ))}
-  </ul>
-);
+const List = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  
+  return (
+    <ul className="card-list">
+      {cardData.map(card => (
+        <Card
+          key={card.id}
+          isSelected={id === card.id}
+          history={{ push: navigate }}
+          {...card}
+        />
+      ))}
+    </ul>
+  );
+};
 
 export const CardList = () => (
-  
   <Router>
-    <Route path={["/:id", "/"]} component={List} />
+    <Routes>
+      <Route path="/:id" element={<List />} />
+      <Route path="/" element={<List />} />
+    </Routes>
   </Router>
 );
 
@@ -60,7 +67,7 @@ const cardData = [
       유한나 큐레이터는 〈물라쥬 멜랑콜리크〉뿐만 아니라 작가의
         그동안의 작업 세계에서 주저 없이 드러나는 여성성에 대하여 하나하나
         짚어보고, 작가이자 동시에 젊은 여성으로서 스스럼없이 보여주는 꾸밈, 장식
-        등의 특정한 표현방식, ‘여성성’이 여성을 통해 드러나는 지점에 대해
+        등의 특정한 표현방식, ‘여성성'이 여성을 통해 드러나는 지점에 대해
         이야기했다.
       <br />
       <br />
@@ -75,14 +82,14 @@ const cardData = [
       남선우 큐레이터는 작업과정에서 있었을 작가가 내린 무수한 선택과
         결단에 집중하며, 작가가 직관을 자유자재로 사용하기까지의 촘촘한
         준비과정을 분석하였고, 비로소 펼쳐지는 직관의 항연을 ‘즉흥으로 춘 춤의
-        기록’, ‘유창하게 써 내려간 편지’로 비유하였다.
+        기록', ‘유창하게 써 내려간 편지'로 비유하였다.
       <br />
       <br />
       한 달여간 생겼다 사라진 전시의 모습은 작가 이의록의 정직하고
         세밀한 사진으로 담았고, 사진으로는 담기지 않은 전시장의 소리와 그 무드는
         작가 김혜원의 면밀하고 따뜻한 영상으로 옮겼다. 특히 김혜원의 영상은 전시
-        기록 영상임과 동시에 ‘아이가 바라본 〈물라쥬 멜랑콜리크〉’라는 해석이
-        들어간 ‘아트 필름’이다.
+        기록 영상임과 동시에 '아이가 바라본 〈물라쥬 멜랑콜리크〉'라는 해석이
+        들어간 '아트 필름'이다.
       <br />
       <br />
       전시장에서 만나 직접적으로, 친필로 쓴 쪽지로, SNS에 올려진

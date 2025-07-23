@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/mm-web-book/precache-manifest.95347abb5d055b4490ca903ef245a645.js"
+  "/WebSite-MmBook/precache-manifest.2463a026e10fdedf81ea8b6441eb32d0.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/mm-web-book/index.html", {
+workbox.routing.registerNavigationRoute("/WebSite-MmBook/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });

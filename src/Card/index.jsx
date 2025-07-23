@@ -1,7 +1,7 @@
 import * as React from "react";
 import { memo, useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useInvertedBorderRadius } from "../utils/use-inverted-border-radius";
 import { ContentPlaceholder } from "./ContentPlaceholder";
 import { Title } from "./Title";
@@ -18,11 +18,12 @@ export const Card = memo(
     id,
     title,
     category,
-    history,
+    // history prop 제거
     pointOfInterest,
     backgroundColor,
     article
   }) => {
+    const navigate = useNavigate(); // useNavigate hook 사용
     const y = useMotionValue(0);
     const zIndex = useMotionValue(isSelected ? 2 : 0);
     // Maintain the visual border radius when we perform the layoutTransition by inverting its scaleX/Y
@@ -30,9 +31,9 @@ export const Card = memo(
     // We'll use the opened card element to calculate the scroll constraints
     const cardRef = useRef(null);
     const constraints = useScrollConstraints(cardRef, isSelected);
-    function checkSwipeToDismiss() {
-      y.get() > dismissDistance && history.push("/");
-    }
+    const checkSwipeToDismiss = React.useCallback(() => {
+      y.get() > dismissDistance && navigate("/"); // navigate 직접 사용
+    }, [y, navigate]);
     function checkZIndex(latest) {
       if (isSelected) {
         zIndex.set(2);

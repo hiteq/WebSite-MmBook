@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Card } from "./Card";
-import { HashRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, useParams } from "react-router-dom";
 
 const List = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   
   return (
     <ul className="card-list">
@@ -12,7 +11,6 @@ const List = () => {
         <Card
           key={card.id}
           isSelected={id === card.id}
-          history={{ push: navigate }}
           {...card}
         />
       ))}

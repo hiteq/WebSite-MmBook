@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Header } from "./Header";
 import { CardList } from "./CardList";
 import "./styles.css";
@@ -170,4 +170,5 @@ function App() {
   );
 }
 const rootElement = document.getElementById("root");
-render(React.createElement(App, null), rootElement);
+const root = createRoot(rootElement);
+root.render(React.createElement(App, null));

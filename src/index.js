@@ -13,7 +13,7 @@ function App() {
           <img
             className="four-link-img"
             alt="전시 서문, 전시장 도면"
-            src="images/link-group-1.svg"
+            src={`${process.env.PUBLIC_URL}/images/link-group-1.svg`}
           />
           <div className="fake-link-group">
             <a
@@ -38,7 +38,7 @@ function App() {
           <img
             className="four-link-img"
             alt="작가 노트, 우한나 CV"
-            src="images/link-group-2.svg"
+            src={`${process.env.PUBLIC_URL}/images/link-group-2.svg`}
           />
           <div className="fake-link-group">
             <a
@@ -88,7 +88,7 @@ function App() {
         >
           <img
             className="sns_button"
-            src="images/fb-sarubia.svg"
+            src={`${process.env.PUBLIC_URL}/images/fb-sarubia.svg`}
             alt="사루비아다방 페이스북 계정으로 연결"
           />
         </a>
@@ -100,7 +100,7 @@ function App() {
         >
           <img
             className="sns_button"
-            src="images/tw-sarubia.svg"
+            src={`${process.env.PUBLIC_URL}/images/tw-sarubia.svg`}
             alt="사루비아다방 트위터 계정으로 연결"
           />
         </a>
@@ -111,7 +111,7 @@ function App() {
         >
           <img
             className="sns_button"
-            src="images/insta-sarubia.svg"
+            src={`${process.env.PUBLIC_URL}/images/insta-sarubia.svg`}
             alt="사루비아다방 인스타그램 계정으로 연결"
           />
         </a>

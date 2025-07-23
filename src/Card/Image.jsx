@@ -17,7 +17,7 @@ export const Image = ({
     >
       <motion.img
         className="card-image"
-        src={`images/${id}.jpg`}
+        src={`${process.env.PUBLIC_URL}/images/${id}.jpg`}
         alt="작품이미지"
         initial={false}
         animate={isSelected ? { x: -20, y: 0 } : { x: -pointOfInterest, y: 0 }}

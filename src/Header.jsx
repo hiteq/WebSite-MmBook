@@ -5,7 +5,7 @@ export const Header = () =>
     null,
     React.createElement("img", {
       className: "logo",
-      src: "images/woo_tit.svg",
-      alt: "\uBB3C\uB77C\uC96C \uBA5C\uB791\uCF5C\uB9AD"
+      src: `${process.env.PUBLIC_URL}/images/woo_tit.svg`,
+      alt: "물라쥬 멜랑콜릭"
     })
   );

@@ -2,7 +2,6 @@ import * as React from "react";
 import { memo, useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useInvertedBorderRadius } from "../utils/use-inverted-border-radius";
 import { ContentPlaceholder } from "./ContentPlaceholder";
 import { Title } from "./Title";
 import { Image } from "./Image";
@@ -26,21 +25,26 @@ export const Card = memo(
     const navigate = useNavigate(); // useNavigate hook 사용
     const y = useMotionValue(0);
     const zIndex = useMotionValue(isSelected ? 2 : 0);
-    // Maintain the visual border radius when we perform the layoutTransition by inverting its scaleX/Y
-    const inverted = useInvertedBorderRadius(0);
     // We'll use the opened card element to calculate the scroll constraints
     const cardRef = useRef(null);
     const constraints = useScrollConstraints(cardRef, isSelected);
+    
     const checkSwipeToDismiss = React.useCallback(() => {
-      y.get() > dismissDistance && navigate("/"); // navigate 직접 사용
+      if (y.get() > dismissDistance) {
+        navigate("/");
+      }
     }, [y, navigate]);
-    function checkZIndex(latest) {
+    
+    const handleDragEnd = React.useCallback(() => {
+      checkSwipeToDismiss();
+      // Z-index 조정
       if (isSelected) {
         zIndex.set(2);
-      } else if (!isSelected && latest.scaleX < 1.01) {
+      } else {
         zIndex.set(0);
       }
-    }
+    }, [checkSwipeToDismiss, isSelected, zIndex]);
+    
     // When this card is selected, attach a wheel event listener
     const containerRef = useRef(null);
     useWheelScroll(
@@ -54,16 +58,23 @@ export const Card = memo(
       <li ref={containerRef} className={`card`}>
         <Overlay isSelected={isSelected} />
         <div className={`card-content-container ${isSelected && "open"}`}>
-          <motion.img className="close" src={`${process.env.PUBLIC_URL}/images/btn_close.svg`} />
+          <motion.img 
+            className="close" 
+            src={`${process.env.PUBLIC_URL}/images/btn_close.svg`}
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          />
           <motion.div
             ref={cardRef}
             className="card-content"
-            style={Object.assign(Object.assign({}, inverted), { zIndex, y })}
-            layoutTransition={isSelected ? openSpring : closeSpring}
+            style={{ zIndex, y }}
+            layout
+            transition={isSelected ? openSpring : closeSpring}
             drag={isSelected ? "y" : false}
             dragConstraints={constraints}
-            onDrag={checkSwipeToDismiss}
-            onUpdate={checkZIndex}
+            onDragEnd={handleDragEnd}
           >
             <Image
               id={id}
@@ -90,6 +101,9 @@ const Overlay = ({ isSelected }) => (
     style={{ pointerEvents: isSelected ? "auto" : "none" }}
     className="overlay"
   >
-    <Link to="/" />
+    <Link 
+      to="/" 
+      aria-label="Close card"
+    />
   </motion.div>
 );

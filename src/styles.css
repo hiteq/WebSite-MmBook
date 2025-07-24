@@ -16,6 +16,8 @@ body {
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-wrap: balance;
+  word-break: keep-all;
 }
 
 #root {
@@ -38,7 +40,7 @@ body {
 h1 {
   font-weight: bold;
   color: #222222;
-  margin: 6px 0 12px;
+  margin: 6px 0 0 12px;
 }
 
 .date {
@@ -157,8 +159,8 @@ li {
 
 .title-container {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 12px;
+  left: 12px;
   width: 100%;
   max-width: 280px;
   word-break: keep-all;

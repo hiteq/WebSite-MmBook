@@ -19,7 +19,7 @@ const List = () => {
 };
 
 export const CardList = () => (
-  <Router>
+  <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
     <Routes>
       <Route path="/:id" element={<List />} />
       <Route path="/" element={<List />} />

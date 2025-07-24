@@ -9,6 +9,23 @@ import { StagewiseToolbar } from "@stagewise/toolbar-react";
 import ReactPlugin from "@stagewise-plugins/react";
 
 function App() {
+  // 개발 환경에서 불필요한 경고 숨기기
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      // CSP 경고는 stagewise 툴바 정상 동작을 위해 필요하므로 무시
+      const originalError = console.error;
+      console.error = (...args) => {
+        const message = args[0]?.toString() || '';
+        if (message.includes('Content Security Policy') || 
+            message.includes('X-Frame-Options') ||
+            message.includes('iframe')) {
+          return; // stagewise 관련 경고 무시
+        }
+        originalError.apply(console, args);
+      };
+    }
+  }, []);
+
   return (
     <div className="container">
       {/* Stagewise 툴바는 개발 모드에서만 렌더링 */}

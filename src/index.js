@@ -3,9 +3,19 @@ import { createRoot } from "react-dom/client";
 import { Header } from "./Header";
 import { CardList } from "./CardList";
 import "./styles.css";
+
+// Stagewise toolbar 관련 import
+import { StagewiseToolbar } from "@stagewise/toolbar-react";
+import ReactPlugin from "@stagewise-plugins/react";
+
 function App() {
   return (
     <div className="container">
+      {/* Stagewise 툴바는 개발 모드에서만 렌더링 */}
+      {process.env.NODE_ENV === 'development' && (
+        <StagewiseToolbar config={{ plugins: [ReactPlugin] }} />
+      )}
+      
       <Header />
       <CardList />
       <div className="link-stack">

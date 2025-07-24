@@ -43,6 +43,11 @@ h1 {
   margin: 6px 0 0 12px;
 }
 
+p {
+  line-height: 1.75em;
+  letter-spacing: -0.04em;
+}
+
 .date {
   color: var(--secondary);
   font-size: 14px;

@@ -7,8 +7,10 @@
   "homepage": "https://hiteq.github.io/WebSite-MmBook",
   "dependencies": {
     "@popmotion/popcorn": "0.4.2",
-    "fibers": "4.0.2",
-    "framer-motion": "^12.23.7",
+    "@stagewise-plugins/react": "^0.6.2",
+    "@stagewise/toolbar-react": "^0.6.2",
+
+    "framer-motion": "10.18.0",
     "jsdom": "^16.5.0",
     "lodash": "4.17.21",
     "popmotion": "9.0.0-beta-8",
@@ -38,5 +40,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

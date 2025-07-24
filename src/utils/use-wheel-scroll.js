@@ -8,7 +8,13 @@ const deltaThreshold = 5;
 // If wheel event fires beyond constraints, multiple the delta by this amount
 const elasticFactor = 0.2;
 function springTo(value, from, to) {
-  if (value.isAnimating()) return;
+  // isAnimating() 메서드 체크 개선
+  try {
+    if (value.isAnimating && value.isAnimating()) return;
+  } catch (error) {
+    // isAnimating 메서드가 없거나 실패하는 경우 무시
+  }
+  
   value.start(complete => {
     const animation = spring({
       from,
@@ -20,7 +26,13 @@ function springTo(value, from, to) {
       update: v => value.set(v),
       complete
     });
-    return () => animation.stop();
+    return () => {
+      try {
+        animation.stop();
+      } catch (error) {
+        console.warn('Animation stop failed:', error);
+      }
+    };
   });
 }
 const debouncedSpringTo = debounce(springTo, 100);
@@ -75,7 +87,15 @@ export function useWheelScroll(ref, y, constraints, onWheelCallback, isActive) {
       }
     }
     if (!startedAnimation) {
-      y.stop();
+      // 진행 중인 애니메이션이 있다면 중단하고 새 값 설정
+      try {
+        if (y.stop && typeof y.stop === 'function') {
+          y.stop();
+        }
+      } catch (error) {
+        // stop 메서드 호출 실패 시 무시하고 계속 진행
+        console.warn('MotionValue.stop() failed:', error);
+      }
       y.set(newY);
     } else {
       debouncedSpringTo.cancel();

@@ -1,5 +1,5 @@
 import { useDomEvent } from "framer-motion";
-import { spring } from "popmotion";
+import { animate, spring } from "popmotion";
 import { mix } from "@popmotion/popcorn";
 import { debounce } from "lodash";
 // Absolute distance a wheel scroll event can travel outside of
@@ -8,32 +8,20 @@ const deltaThreshold = 5;
 // If wheel event fires beyond constraints, multiple the delta by this amount
 const elasticFactor = 0.2;
 function springTo(value, from, to) {
-  // isAnimating() 메서드 체크 개선
-  try {
-    if (value.isAnimating && value.isAnimating()) return;
-  } catch (error) {
-    // isAnimating 메서드가 없거나 실패하는 경우 무시
-  }
+  if (value.isAnimating()) return;
   
-  value.start(complete => {
-    const animation = spring({
-      from,
-      to,
-      velocity: value.getVelocity(),
-      stiffness: 400,
-      damping: 40
-    }).start({
-      update: v => value.set(v),
-      complete
-    });
-    return () => {
-      try {
-        animation.stop();
-      } catch (error) {
-        console.warn('Animation stop failed:', error);
-      }
-    };
+  const animation = animate({
+    from,
+    to,
+    velocity: value.getVelocity(),
+    type: "spring",
+    stiffness: 400,
+    damping: 40,
+    onUpdate: v => value.set(v),
+    onComplete: () => value.stop()
   });
+  
+  return () => animation.stop();
 }
 const debouncedSpringTo = debounce(springTo, 100);
 /**
@@ -87,15 +75,7 @@ export function useWheelScroll(ref, y, constraints, onWheelCallback, isActive) {
       }
     }
     if (!startedAnimation) {
-      // 진행 중인 애니메이션이 있다면 중단하고 새 값 설정
-      try {
-        if (y.stop && typeof y.stop === 'function') {
-          y.stop();
-        }
-      } catch (error) {
-        // stop 메서드 호출 실패 시 무시하고 계속 진행
-        console.warn('MotionValue.stop() failed:', error);
-      }
+      y.stop();
       y.set(newY);
     } else {
       debouncedSpringTo.cancel();

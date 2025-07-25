@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/WebSite-MmBook/static/css/main.b39eaead.css",
-    "main.js": "/WebSite-MmBook/static/js/main.070ae652.js",
+    "main.js": "/WebSite-MmBook/static/js/main.bd1ef783.js",
     "index.html": "/WebSite-MmBook/index.html",
     "main.b39eaead.css.map": "/WebSite-MmBook/static/css/main.b39eaead.css.map",
-    "main.070ae652.js.map": "/WebSite-MmBook/static/js/main.070ae652.js.map"
+    "main.bd1ef783.js.map": "/WebSite-MmBook/static/js/main.bd1ef783.js.map"
   },
   "entrypoints": [
     "static/css/main.b39eaead.css",
-    "static/js/main.070ae652.js"
+    "static/js/main.bd1ef783.js"
   ]
 }

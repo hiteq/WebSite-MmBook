@@ -14,7 +14,7 @@
     "lodash": "4.17.23",
     "popmotion": "^11.0.5",
     "react-router-dom": "^7.7.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^0.0.0",
     "sass": "^1.89.2",
     "ws": "^8.18.0"
   },
